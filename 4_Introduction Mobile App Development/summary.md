@@ -1,9 +1,9 @@
-**1. Pengertian Software** ? 
+**1. Pengertian Software**
 
 **Software** merupakan data yang telah dibuat dalam bentuk program, dan disimpan dalam bentuk elektronik. **Software** juga sering disebut dengan **Perangkat Lunak** atau **Aplikasi**
 
 
-**2. Jenis Software** ? 
+**2. Jenis Software**
 
 **Jenis software** pada umumnya dibagi atas 3 jenis yaitu
 1. Software berbasis web
@@ -18,7 +18,7 @@
    - Umumnya perlu installasi terebih dahulu.
    - Dapat dibuat menggunakan internet maupun tanpa internet.
 
-**3. Pengembangan App Development** ? 
+**3. Pengembangan App Development**
 
 Setidaknya ada beberapa langkah umum dalam melakukan **Pengembangan App Development**
 1. Menulis bahasa pemrograman
