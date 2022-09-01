@@ -7,7 +7,7 @@ void main(List<String> args) async {
   print(hasil);
 }
 
-perkalian({required List<int> data, required int pengali}) async {
+perkalian({required List<int> data, int pengali = 1}) async {
   List<int> newList = [];
   await Future.forEach(data, (int element) {
     int hasilKali = element * pengali;
