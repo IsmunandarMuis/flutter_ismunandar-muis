@@ -12,7 +12,7 @@ class PagePreviewPost extends StatelessWidget {
       : super(key: key);
   final File imageFIle;
   final String date;
-  final Map<String, dynamic> selectionColor;
+  final Color selectionColor;
   final String caption;
   @override
   Widget build(BuildContext context) {
@@ -38,11 +38,15 @@ class PagePreviewPost extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(date),
+                Text(
+                  "Published : $date",
+                  style: TextStyle(color: Colors.black38, fontSize: 15),
+                ),
                 Row(
                   children: [
                     Text(
                       "Color",
+                      style: TextStyle(color: Colors.black38, fontSize: 15),
                     ),
                     SizedBox(
                       width: 10,
@@ -51,17 +55,21 @@ class PagePreviewPost extends StatelessWidget {
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(selectionColor['colorHexa'])),
+                          shape: BoxShape.circle, color: selectionColor),
                     ),
                   ],
                 ),
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
-            Center(child: Text(caption))
+            Center(
+                child: Text(
+              caption,
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ))
           ],
         ),
       ),

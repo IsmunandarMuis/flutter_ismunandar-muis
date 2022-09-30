@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:praktikum/pages/page_preview_post.dart';
@@ -37,6 +38,7 @@ class _PageCreatePostState extends State<PageCreatePost> {
   late TextEditingController dateController;
   late TextEditingController captionController;
   late Map<String, dynamic> dataColor;
+  late Color currentColor;
   File? file;
 
   @override
@@ -44,6 +46,7 @@ class _PageCreatePostState extends State<PageCreatePost> {
     dateController = TextEditingController();
     captionController = TextEditingController();
     dataColor = {};
+    currentColor = Color(0xffff);
     super.initState();
   }
 
@@ -117,8 +120,9 @@ class _PageCreatePostState extends State<PageCreatePost> {
 
                 if (date != null) {
                   // print(date);
-                  String getDate = DateFormat().format(date);
+                  String getDate = DateFormat('dd/MM/yyyy').format(date);
                   dateController.text = getDate;
+                  print(dateController.text);
                 } else {}
               },
               decoration: InputDecoration(
@@ -135,41 +139,31 @@ class _PageCreatePostState extends State<PageCreatePost> {
             SizedBox(
               height: 10,
             ),
-            DropdownButtonFormField(
-              decoration: InputDecoration(
-                fillColor: Colors.white,
-                focusColor: Colors.white,
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                hintText: "Pick a color",
-              ),
-              isExpanded: true,
-              items: listColor.map((
-                menu,
-              ) {
-                return DropdownMenuItem(
-                  value: menu,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(menu['colorName']),
-                      Container(
-                        height: 15,
-                        width: 15,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(menu['colorHexa'])),
-                      )
-                    ],
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  dataColor = value as Map<String, dynamic>;
-                  print(dataColor);
-                });
+            TextField(
+              readOnly: true,
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: Text("Pick a color"),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                                pickerColor: currentColor,
+                                onColorChanged: (color) {
+                                  setState(() {
+                                    currentColor = color;
+                                  });
+                                }),
+                          ),
+                        ));
               },
+              decoration: InputDecoration(
+                  hintText: "Pick a color",
+                  fillColor: currentColor,
+                  filled: true,
+                  contentPadding: EdgeInsets.all(12),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),
             ),
             SizedBox(
               height: 20,
@@ -212,7 +206,7 @@ class _PageCreatePostState extends State<PageCreatePost> {
                       PagePreviewPost(
                           imageFIle: file!,
                           date: dateController.text,
-                          selectionColor: dataColor,
+                          selectionColor: currentColor,
                           caption: captionController.text),
                 ),
               );
