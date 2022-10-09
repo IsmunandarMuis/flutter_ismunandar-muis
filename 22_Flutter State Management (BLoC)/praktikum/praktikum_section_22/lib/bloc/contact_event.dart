@@ -7,12 +7,6 @@ abstract class ContactEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoadContact extends ContactEvent {
-  final List<ContactModel> contact;
-
-  const LoadContact({this.contact = const <ContactModel>[]});
-}
-
 class AddContact extends ContactEvent {
   final ContactModel contact;
 

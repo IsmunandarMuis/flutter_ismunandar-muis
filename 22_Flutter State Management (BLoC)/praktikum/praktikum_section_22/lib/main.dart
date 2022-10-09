@@ -14,10 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ContactBloc()
-        ..add(
-          const LoadContact(),
-        ),
+      create: (context) => ContactBloc(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomePage(),

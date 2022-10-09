@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:praktikum_section_22/models/contact_model.dart';
 import 'package:praktikum_section_22/pages/widgets/contact_card.dart';
 import 'package:praktikum_section_22/theme.dart';
 
@@ -38,7 +39,7 @@ class HomePage extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Themes.primaryColor,
                 ),
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
             )
           ],
@@ -51,72 +52,46 @@ class HomePage extends StatelessWidget {
         ),
         body: BlocBuilder<ContactBloc, ContactState>(
           builder: (context, state) {
-            if (state is ContactLoading) {
+            if (state is ContactInitial) {
+              return const Center(
+                child: Text("Belum ada list"),
+              );
+            } else if (state is ContactLoading) {
               return Center(
                 child: CircularProgressIndicator(
                   color: Themes.primaryColor,
                 ),
               );
-            }
-            if (state is ContactLoaded && state.listContact.isNotEmpty) {
-              return ListView.builder(
-                  padding: EdgeInsets.symmetric(
-                    vertical: Themes.verticalMargin,
-                    horizontal: Themes.horizontalMargin,
-                  ),
-                  itemCount: state.listContact.length,
-                  itemBuilder: (context, index) {
-                    // return Container();
-                    return ContactCard(
-                        context: context,
-                        contactModel: state.listContact[index],
-                        onDelete: () {
-                          context
-                              .read<ContactBloc>()
-                              .add(DeleteContact(state.listContact[index]));
-                        });
+            } else if (state is SuccessAdded) {
+              showModalBottomSheet(
+                  context: (context),
+                  builder: (context) {
+                    return const Center(
+                      child: Text("Success Add Data"),
+                    );
                   });
-            } else {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Contact Is Empty",
-                      style: Themes.primaryTextStyle.copyWith(
-                        fontSize: 18,
-                        fontWeight: Themes.semiBold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const CreatePage()));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(color: Themes.primaryColor),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Text(
-                          "Add New Contact +",
-                          style: Themes.primaryTextStyle.copyWith(
-                              fontSize: 12,
-                              fontWeight: Themes.bold,
-                              color: Themes.primaryColor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+            } else if (state is ContactLoaded) {
+              List<ContactModel> allContact = state.listContact;
+              if (allContact.isEmpty) {
+                return const Center(
+                  child: Text("Belum ada list"),
+                );
+              } else {
+                return ListView.builder(
+                    itemCount: allContact.length,
+                    padding: const EdgeInsets.all(20),
+                    itemBuilder: ((context, index) {
+                      return ContactCard(
+                          contactModel: allContact[index],
+                          onDelete: () {
+                            context
+                                .read<ContactBloc>()
+                                .add(DeleteContact(allContact[index]));
+                          });
+                    }));
+              }
             }
+            return const SizedBox();
           },
         ));
   }

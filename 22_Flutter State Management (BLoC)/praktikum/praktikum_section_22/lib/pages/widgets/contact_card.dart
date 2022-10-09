@@ -3,20 +3,16 @@ import 'package:praktikum_section_22/models/contact_model.dart';
 import 'package:praktikum_section_22/theme.dart';
 
 class ContactCard extends StatelessWidget {
-  ContactCard(
-      {Key? key,
-      required this.contactModel,
-      required this.context,
-      required this.onDelete})
+  ContactCard({Key? key, required this.contactModel, required this.onDelete})
       : super(key: key);
   void Function()? onDelete;
   final ContactModel contactModel;
-  final BuildContext context;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(13),
-      margin: EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(18),

@@ -7,28 +7,25 @@ part 'contact_event.dart';
 part 'contact_state.dart';
 
 class ContactBloc extends Bloc<ContactEvent, ContactState> {
-  ContactBloc() : super(ContactLoading()) {
-    on<LoadContact>((event, emit) {
-      emit(ContactLoaded(listContact: event.contact));
+  ContactBloc() : super(ContactInitial()) {
+    on<AddContact>((event, emit) async {
+      emit(ContactLoading());
+      await Future.delayed(const Duration(seconds: 1));
+
+      List<ContactModel> listContact = List.from(state.listContact)
+        ..add(event.contact);
+
+      emit(SuccessAdded());
+
+      emit(ContactLoaded(listContact: listContact));
     });
 
-    on<AddContact>((event, emit) {
-      final state = this.state;
-      if (state is ContactLoaded) {
-        emit(ContactLoaded(
-            listContact: List.from(state.listContact)
-              ..insert(0, event.contact)));
-      }
-    });
+    on<DeleteContact>((event, emit) async {
+      emit(ContactLoading());
+      await Future.delayed(const Duration(seconds: 1));
 
-    on<DeleteContact>((event, emit) {
-      final state = this.state;
-      if (state is ContactLoaded) {
-        List<ContactModel> contacts = state.listContact.where((contact) {
-          return contact.contactName != event.contact.contactName;
-        }).toList();
-        emit(ContactLoaded(listContact: contacts));
-      }
+      emit(ContactLoaded(
+          listContact: List.from(state.listContact)..remove(event.contact)));
     });
   }
 }
