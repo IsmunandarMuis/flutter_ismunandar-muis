@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "565049590859",
+    "project_id": "contact-crud-59126",
+    "storage_bucket": "contact-crud-59126.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:565049590859:android:8e4964011e040cb00e39ce",
+        "android_client_info": {
+          "package_name": "com.example.praktikum_26"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "565049590859-9o5u16bt500jln85s3i8v0a7t0n6slhi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH4zn3w_ubSw6RkvvNTM17EWHzHvKv5jA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "565049590859-9o5u16bt500jln85s3i8v0a7t0n6slhi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
