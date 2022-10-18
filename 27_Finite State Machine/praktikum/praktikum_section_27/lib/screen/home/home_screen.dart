@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text("Home Screen")),
       body: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           if (state is LoadingDataState) {
