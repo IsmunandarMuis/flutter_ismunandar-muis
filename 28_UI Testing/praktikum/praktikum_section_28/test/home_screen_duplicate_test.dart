@@ -7,10 +7,9 @@ import 'package:praktikum_section_28/screen/home/home_screen_duplicate.dart';
 import 'package:praktikum_section_28/screen/home/home_view_model/home_bloc.dart';
 
 void main() {
-  testWidgets("Test widget appbar home screen", (WidgetTester tester) async {
-    await tester.pumpWidget(const MaterialApp(
-      home: HomeScreenDuplicate(),
-    ));
+  testWidgets("Test widget appbar home screen duplicate",
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const HomeScreenDuplicate());
     expect(find.byType(Text), findsOneWidget);
   });
 }
